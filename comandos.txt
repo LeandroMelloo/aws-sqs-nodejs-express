@@ -1,3 +1,4 @@
 npm init -y -> cria o arquivo package.json
-npm install express -> biblioteca javascript para criação de um servidor
+npm install express
 npm install nodemon
+npm install aws-sdk
