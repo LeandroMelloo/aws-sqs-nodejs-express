@@ -12,6 +12,9 @@ aws.config.update({ region: "us-east-1" });
 // configuração do SQS
 const sqs = new aws.SQS();
 
+// dotenv
+require('dotenv').config()
+
 app.use(express.static(pasta));
 app.use(express.json());
 
@@ -23,7 +26,7 @@ app.post("/solicitar_imagens", (request, response) => {
       {
         MessageBody: "Imagem gerada SQS",
         QueueUrl:
-          "https://sqs.us-east-1.amazonaws.com/789254738812/SolicitarImagens",
+          process.env.URL_SQS,
       },
       (erro, data) => {
         if (erro) {
