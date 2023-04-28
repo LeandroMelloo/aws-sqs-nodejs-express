@@ -1,19 +1,18 @@
 const aws = require("aws-sdk");
 const express = require("express");
 
+require("dotenv").config();
+
 const app = express();
 const porta = 3000;
 
 const pasta = process.env.PWD === undefined ? process.cwd() : process.env.PWD;
 
 // configuração da região na AWS
-aws.config.update({ region: "us-east-1" });
+aws.config.update({ region: process.env.AWS_REGION });
 
 // configuração do SQS
 const sqs = new aws.SQS();
-
-// dotenv
-require('dotenv').config()
 
 app.use(express.static(pasta));
 app.use(express.json());
@@ -25,8 +24,7 @@ app.post("/solicitar_imagens", (request, response) => {
     sqs.sendMessage(
       {
         MessageBody: "Imagem gerada SQS",
-        QueueUrl:
-          process.env.URL_SQS,
+        QueueUrl: process.env.AWS_URL_SQS,
       },
       (erro, data) => {
         if (erro) {

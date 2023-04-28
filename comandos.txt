@@ -3,3 +3,5 @@ npm install express
 npm install nodemon
 npm install aws-sdk
 npm install dotenv
+npm install request
+npm install node-cron
